@@ -1,0 +1,15 @@
+.mat-mdc-snack-bar-container {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: unset !important;
+  max-width: unset !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Ghi đè phần nền và shadow thực sự nằm ở đây */
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}

@@ -1,4 +1,7 @@
 {
     "app.title": "My Auth FE 2",
-    "myDialog.title": "My Dialog"
+    "myDialog.title": "My Dialog",
+    "http.networkError": "Network Error!",
+    "http.internalServerError": "Internal Server Error!",
+    "http.unknownError": "Unknown Error!"
 }
