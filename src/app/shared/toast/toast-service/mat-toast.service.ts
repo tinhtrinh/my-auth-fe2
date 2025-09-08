@@ -7,11 +7,11 @@ import { ToastRef } from './toast.ref.abstract';
 @Injectable({
   providedIn: 'root'
 })
-export class MatToastService extends ToastService {
+export class MatToastService implements ToastService {
   
   private snackBar = inject(MatSnackBar);
 
-  override openFromComponent(component: ComponentType<any>, option?: any): ToastRef {
+  openFromComponent(component: ComponentType<any>, option?: any): ToastRef {
     const ref = this.snackBar.openFromComponent(component, option);
 
     const toastRef: ToastRef = {

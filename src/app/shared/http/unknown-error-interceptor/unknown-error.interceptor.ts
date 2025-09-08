@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, EMPTY, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { ErrorToastComponent } from '../../toast/error-toast/error-toast.component';
 import { ToastService } from '../../toast/toast-service/toast.service.abstract';
 
@@ -15,7 +15,7 @@ export const unknownErrorInterceptor: HttpInterceptorFn = (req, next) => {
           { data: 'http.unknownError' }
         );
 
-        return EMPTY;
+        return throwError(() => error);
       }
 
       return throwError(() => error);

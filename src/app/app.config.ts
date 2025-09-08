@@ -7,6 +7,8 @@ import { provideI18n } from './shared/i18n/i18n.provider';
 import { provideDialog } from './shared/dialog/dialog.provider';
 import { provideMyAuthHttpClient } from './shared/http/http.provider';
 import { provideToast } from './shared/toast/toast.provider';
+import { provideLoading } from './shared/loading/loading.provider';
+import { provideAuth } from './shared/auth/auth.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +18,8 @@ export const appConfig: ApplicationConfig = {
     provideMyAuthHttpClient(),
     provideI18n(),
     provideDialog(),
-    provideToast()
+    provideToast(),
+    provideLoading(),
+    provideAuth()
   ]
 };

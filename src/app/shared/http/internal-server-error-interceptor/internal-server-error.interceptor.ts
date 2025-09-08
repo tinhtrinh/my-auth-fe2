@@ -8,16 +8,18 @@ export const internalServerErrorInterceptor: HttpInterceptorFn = (req, next) => 
   const toastService = inject(ToastService);
 
   return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 500) {
-        toastService.openFromComponent(
-          ErrorToastComponent,
-          { data: 'http.internalServerError' }
-        );
-        
-        return EMPTY;
+    catchError((error) => {
+      if(error instanceof HttpErrorResponse) {
+        if (error.status === 500) {
+          toastService.openFromComponent(
+            ErrorToastComponent,
+            { data: 'http.internalServerError' }
+          );
+          
+          return EMPTY;
+        }
       }
-
+      
       return throwError(() => error);
     })
   )

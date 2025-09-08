@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { LoadingService } from '../loading-service/loading.service';
+import { LoadingService } from '../loading-service/loading.service.abstract';
 import { MatProgressSpinnerModule  } from '@angular/material/progress-spinner';
 import { AsyncPipe } from '@angular/common';
 
