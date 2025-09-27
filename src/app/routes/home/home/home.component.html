@@ -5,3 +5,18 @@
 <button mat-button (click)="openMyDialog()">Open My Dialog</button>
 
 <app-loading-indicator></app-loading-indicator>
+
+<app-tab-group>
+  @for(tab of tabs; track tab.id) {
+    <app-tab [id]="tab.id">
+      <ng-template #appTabLabel>
+        <div>{{ tab.label }}</div>
+      </ng-template>
+ 
+      <ng-template #appTabContent>
+        <div>{{ tab.content }}</div>
+        <!-- <ng-container *ngComponentOutlet="tab.content"></ng-container> -->
+      </ng-template>
+    </app-tab>
+  }
+</app-tab-group>

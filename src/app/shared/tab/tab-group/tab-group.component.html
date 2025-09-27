@@ -1,0 +1,29 @@
+<div #tabContainer class="tab-container">
+  <mat-tab-group [disablePagination]="true" [(selectedIndex)]="selectedIndex">
+    @for (tab of visibleTabs; track tab.id) {
+      <mat-tab>
+        <ng-template matTabLabel>
+          <ng-container *ngTemplateOutlet="tab.labelTpl"></ng-container>
+        </ng-template>
+
+        <ng-template matTabContent>
+          <ng-container *ngTemplateOutlet="tab.contentTpl"></ng-container>
+        </ng-template>
+      </mat-tab>
+    }
+  </mat-tab-group>
+
+  @if (overflowTabs.length > 0) {
+    <button #overflowButton mat-button [matMenuTriggerFor]="overflowMenu">
+      Xem thêm
+    </button>
+  }
+
+  <mat-menu #overflowMenu="matMenu">
+    @for (tab of overflowTabs; track tab.id) {
+      <button mat-menu-item (click)="selectOverflowTab(tab)">
+        <ng-container *ngTemplateOutlet="tab.labelTpl"></ng-container>
+      </button>
+    }
+  </mat-menu>
+</div>
