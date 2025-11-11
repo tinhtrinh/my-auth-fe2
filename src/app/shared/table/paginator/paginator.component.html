@@ -1,0 +1,27 @@
+<div class="paginator-container">
+    <div class="page-size">
+        <mat-form-field appearance="outline">
+            <mat-label>Items per page</mat-label>
+            <mat-select [value]="pageSize" (selectionChange)="onPageSizeChange($event.value)">
+                @for(size of pageSizeOptions; track size) {
+                    <mat-option [value]="size">
+                        {{ size }}
+                    </mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+ 
+    <div class="range-label">Showing {{ startIndex }} to {{ endIndex }} of {{ length }}</div>
+ 
+    <div class="page-buttons">
+        <mat-paginator
+            hidePageSize="true"
+            [length]="length"
+            [pageSize]="pageSize"
+            [pageIndex]="pageIndex"
+            (page)="onPageChange($event)"
+        >
+        </mat-paginator>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+table, th, td {
+  border: 1px solid black;
+}
+
+.header-cell {
+  width: 10rem;
+  display: flex;
+}
+ 
+.header-cell .text-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  order: 1;
+}
+ 
+/* nên để riêng ở directive */
+/* cũng nên copy ra một cái gọi là header-cell-button */
+.header-cell .header-cell-button{
+  position: relative;
+  margin-left: auto;
+  z-index: 10;
+  cursor: pointer;
+  display: none; /* cái này nên có logic bật tắt trong directive */
+}
+
+// khai báo các biến giữ giá trị cấp độ z-index
+// z-base = nhỏ nhất

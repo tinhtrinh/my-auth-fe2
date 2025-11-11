@@ -9,6 +9,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { TabGroupComponent } from '../../../shared/tab/tab-group/tab-group.component';
 import { TabComponent } from '../../../shared/tab/tab/tab.component';
+import { SortableHeaderDirective, SortDirection } from '../../../shared/table/sortable-header-directive/sortable-header.directive';
+import { ResizableHeaderDirective } from '../../../shared/table/resizable-header-directive/resizable-header.directive';
+import { PaginatorComponent } from '../../../shared/table/paginator/paginator.component';
+import { ExpansionPanelComponent } from '../../../shared/expansion-panel/expansion-panel.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +23,11 @@ import { TabComponent } from '../../../shared/tab/tab/tab.component';
     MatTabsModule,
     MatMenuModule,
     TabGroupComponent,
-    TabComponent
+    TabComponent,
+    SortableHeaderDirective,
+    ResizableHeaderDirective,
+    PaginatorComponent,
+    ExpansionPanelComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -46,8 +54,14 @@ export class HomeComponent {
     }
   });
 
+  sortColumnMap: Record<string, SortDirection> = {
+    company: '',
+    contact: '',
+    country: ''
+  };
+
   openMyDialog(): void {
-    this.httpClient.get('http://localhost:5190/api/users').subscribe();
+    this.httpClient.get('http://localhost:5190/api/users', { withCredentials: true }).subscribe();
     
     const dialogRef = this.dialogService.open(
       MyDialogComponent,
@@ -57,6 +71,20 @@ export class HomeComponent {
     dialogRef.closed().subscribe((res) => {
       this.myDialogData.set(res);
     })
+  }
+
+  onSortChange(event: any) {
+    Object.keys(this.sortColumnMap).forEach((column: string) => {
+      if(column == event.sortColumn) {
+        this.sortColumnMap[column] = event.sortDirection
+      } else {
+        this.sortColumnMap[column] = ''
+      }
+    })
+  }
+
+  onPageChange(event: any): void {
+    event;
   }
 }
 

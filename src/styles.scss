@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @use './app/shared/toast/toast.scss' as toast;
+@use './app/shared/table/sortable-header-directive/sortable-header.directive.scss';
+@use './app/shared/table/resizable-header-directive/resizable-header.directive.scss' as resizable-header;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

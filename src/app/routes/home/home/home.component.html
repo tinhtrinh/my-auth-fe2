@@ -20,3 +20,81 @@
     </app-tab>
   }
 </app-tab-group>
+
+<table>
+  <tr>
+    <th>
+      <div
+        tabindex="0"
+        class="header-cell" 
+        appResizableHeader
+        appSortableHeader
+        sortColumnName="company"
+        defaultSortDirection="asc"
+        [sortDirection]="sortColumnMap['company']"
+        (sortChange)="onSortChange($event)"
+      >
+        <span class="text-content">
+          Company aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        </span>
+      </div>
+    </th>
+
+    <th>
+      <div
+        tabindex="0"
+        class="header-cell" 
+        appResizableHeader
+        appSortableHeader
+        sortColumnName="contact"
+        [sortDirection]="sortColumnMap['contact']"
+        (sortChange)="onSortChange($event)"
+      >
+        <span class="text-content">
+          Contact
+        </span>
+      </div>
+    </th>
+    
+    <th>
+      <div
+        tabindex="0"
+        class="header-cell" 
+        appResizableHeader
+        appSortableHeader
+        sortColumnName="country"
+        [sortDirection]="sortColumnMap['country']"
+        (sortChange)="onSortChange($event)"
+      >
+        <span class="text-content">
+          Country
+        </span>
+      </div>
+    </th>
+  </tr>
+
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+
+  <tr>
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+  </tr>
+</table>
+
+<br/>
+<app-paginator [length]="100" (pageChange)="onPageChange($event)"></app-paginator>
+
+<app-expansion-panel>
+  <ng-template #appExpansionPanelTitle>
+    <div>Expansion Panel Title</div>
+  </ng-template>
+
+  <ng-template #appExpansionPanelContent>
+    <div>Expansion Panel Content</div>
+  </ng-template>
+</app-expansion-panel>

@@ -1,0 +1,21 @@
+.resizer-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0.3125rem; // 5px
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  background-color: blue;
+  z-index: 10;
+}
+ 
+.resizer-bar::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0.09375rem; // 1.5px
+  background: blue;
+  width: 0.125rem; // 2px
+  height: 95vh;
+}

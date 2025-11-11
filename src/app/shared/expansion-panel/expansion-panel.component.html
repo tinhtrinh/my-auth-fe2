@@ -1,0 +1,11 @@
+<div class="expansion-panel-header">
+    <i *ngIf="!isCollapse" class="toggle-icon bi bi-chevron-down" (click)="onToggle()"></i>
+ 
+    <i *ngIf="isCollapse" class="toggle-icon bi bi-chevron-right" (click)="onToggle()"></i>
+ 
+    <ng-container *ngTemplateOutlet="expansionPanelTitleTpl"></ng-container>
+</div>
+ 
+<div class="expansion-panel-content" [ngStyle]="{ display: isCollapse ? 'none' : 'block' }">
+    <ng-container *ngTemplateOutlet="expansionPanelContentTpl"></ng-container>
+</div>
