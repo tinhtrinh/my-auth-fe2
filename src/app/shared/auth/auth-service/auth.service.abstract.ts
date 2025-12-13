@@ -1,9 +1,15 @@
+import { Observable } from "rxjs";
+
+export interface TokenResponse {
+    accessToken: string;
+    expiresInUtc: string;
+}
+
 export abstract class AuthService {
     abstract hasValidAccessToken(): boolean;
-    abstract hasValidRefreshToken(): boolean;
-    abstract getAccessToken(): string;
+    abstract getAccessToken(): string | null;
     abstract login(): void;
-    abstract tryLogin(): Promise<any>
-    abstract refreshToken(): Promise<any>;
+    abstract refreshToken(): Observable<TokenResponse>;
     abstract logOut(): void;
+    abstract handleLoginCallback(): void;
 }

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { DIALOG_BASE_IMPORTS, DIALOG_BASE_PROVIDERS, DialogBase } from '../../../shared/dialog/dialog-base.component';
@@ -13,6 +12,8 @@ import { SortableHeaderDirective, SortDirection } from '../../../shared/table/so
 import { ResizableHeaderDirective } from '../../../shared/table/resizable-header-directive/resizable-header.directive';
 import { PaginatorComponent } from '../../../shared/table/paginator/paginator.component';
 import { ExpansionPanelComponent } from '../../../shared/expansion-panel/expansion-panel.component';
+import { AuthService } from '../../../shared/auth/auth-service/auth.service.abstract';
+import { HttpService } from '../../../shared/http/http-service/http.service.abstract';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,8 @@ export class HomeComponent {
   title = 'my-auth-fe2';
   myDialogData = signal('My Dialog Data');
   private dialogService = inject(DIALOG_SERVICE_TOKEN);
-  private httpClient = inject(HttpClient);
+  private authService = inject(AuthService);
+  private httpService = inject(HttpService);
 
   tabs = Array.from({ length: 100 }, (_, i) => {
     if(i == 10) {
@@ -61,7 +63,7 @@ export class HomeComponent {
   };
 
   openMyDialog(): void {
-    this.httpClient.get('http://localhost:5190/api/users', { withCredentials: true }).subscribe();
+    this.httpService.get('users').subscribe();
     
     const dialogRef = this.dialogService.open(
       MyDialogComponent,
@@ -85,6 +87,10 @@ export class HomeComponent {
 
   onPageChange(event: any): void {
     event;
+  }
+
+  onLogout() : void {
+    this.authService.logOut();
   }
 }
 

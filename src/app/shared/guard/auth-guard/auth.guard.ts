@@ -1,38 +1,33 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { of, from, map, switchMap, catchError } from 'rxjs';
+import { map, catchError } from 'rxjs';
 import { AuthService } from '../../auth/auth-service/auth.service.abstract';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
- 
+
   // Nếu token hợp lệ → cho phép truy cập
   if (authService.hasValidAccessToken()) {
-    return of(true);
+    return true;
   }
 
-  if(!authService.hasValidRefreshToken()) {
-    authService.logOut();
-    return router.navigate(['/logout']);
-  }
- 
   // Thử refresh token bằng RxJS
-  return from(authService.refreshToken()).pipe(
-    map(() => authService.hasValidAccessToken()),
-
-    switchMap((isValid) => {
-      if (isValid) {
-        return of(true);
-      } else {
-        authService.logOut();
-        return router.navigate(['/logout']);
+  return authService.refreshToken().pipe(
+    map(() => {
+      if (authService.hasValidAccessToken()) {
+        return true;
       }
+
+      console.error('AuthGuard refresh invalid. Logout...');
+      authService.logOut();
+      return router.createUrlTree(['/logout']);
     }),
 
     catchError(() => {
+      console.error('AuthGuard refresh fail. Logout...');
       authService.logOut();
-      return router.navigate(['/logout']);;
+      return router.navigate(['/logout']);
     })
   );
 };
