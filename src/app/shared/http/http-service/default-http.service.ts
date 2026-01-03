@@ -1,11 +1,14 @@
 import { HttpClient, HttpContext } from "@angular/common/http";
-import { inject } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthService } from "../../auth/auth-service/auth.service.abstract";
 import { HttpService } from "./http.service.abstract";
 import { HAS_AUTH_HEADER } from "../auth-header-interceptor/auth-header.interceptor";
 import { HAS_UNAUTHORIZED_ERROR_HANDLER } from "../unauthorized-error-interceptor/unauthorized-error.interceptor";
 
+@Injectable({
+  providedIn: 'root'
+})
 export class DefaultHttpService implements HttpService {
     protected readonly BACKEND_URL = 'http://localhost:5190/api';
 

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { DIALOG_BASE_IMPORTS, DIALOG_BASE_PROVIDERS, DialogBase } from '../../../shared/dialog/dialog-base.component';
 import { DIALOG_SERVICE_TOKEN } from '../../../shared/dialog/dialog.token';
@@ -14,6 +14,7 @@ import { PaginatorComponent } from '../../../shared/table/paginator/paginator.co
 import { ExpansionPanelComponent } from '../../../shared/expansion-panel/expansion-panel.component';
 import { AuthService } from '../../../shared/auth/auth-service/auth.service.abstract';
 import { HttpService } from '../../../shared/http/http-service/http.service.abstract';
+import { RealTimeService } from '../../../shared/real-time/real-time-service/real-time.service.abstract';
 
 @Component({
   selector: 'app-home',
@@ -33,12 +34,16 @@ import { HttpService } from '../../../shared/http/http-service/http.service.abst
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   title = 'my-auth-fe2';
   myDialogData = signal('My Dialog Data');
   private dialogService = inject(DIALOG_SERVICE_TOKEN);
   private authService = inject(AuthService);
   private httpService = inject(HttpService);
+  private realTimeService = inject(RealTimeService);
+
+  exportProgress = 0;
+  exportMessage = '';
 
   tabs = Array.from({ length: 100 }, (_, i) => {
     if(i == 10) {
@@ -61,6 +66,20 @@ export class HomeComponent {
     contact: '',
     country: ''
   };
+
+  async ngOnInit(): Promise<void> {
+    const accessToken = this.authService.getAccessToken();
+
+    await this.realTimeService.start(accessToken);
+
+    this.realTimeService.on<number>('UpdatedExportProgress', (percent: number) => {
+      this.exportProgress = percent;
+    })
+
+    this.realTimeService.on<string>('ReceivedExportResult', (message: string) => {
+      this.exportMessage = message;
+    })
+  }
 
   openMyDialog(): void {
     this.httpService.get('users').subscribe();
@@ -89,8 +108,16 @@ export class HomeComponent {
     event;
   }
 
-  onLogout() : void {
+  async onLogout() : Promise<void> {
+    this.realTimeService.off('UpdatedExportProgress');
+    this.realTimeService.off('ReceivedExportResult');
+    await this.realTimeService.stop();
     this.authService.logOut();
+  }
+
+  onExport() : void {
+    const connectionId = this.realTimeService.getConnectionId();
+    this.httpService.get(`users/export?connectionId=${connectionId}`).subscribe();
   }
 }
 

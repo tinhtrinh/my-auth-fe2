@@ -9,6 +9,7 @@ import { provideMyAuthHttpClient } from './shared/http/http.provider';
 import { provideToast } from './shared/toast/toast.provider';
 import { provideLoading } from './shared/loading/loading.provider';
 import { provideAuth } from './shared/auth/auth.provider';
+import { provideRealTime } from './shared/real-time/real-time.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideDialog(),
     provideToast(),
     provideLoading(),
-    provideAuth()
+    provideAuth(),
+    provideRealTime()
   ]
 };

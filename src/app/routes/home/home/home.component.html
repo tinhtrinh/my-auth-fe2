@@ -6,6 +6,8 @@
 
 <button mat-button (click)="onLogout()">Log Out</button>
 
+<button mat-button (click)="onExport()">Export</button>
+
 <app-loading-indicator></app-loading-indicator>
 
 <app-tab-group>
@@ -100,3 +102,11 @@
     <div>Expansion Panel Content</div>
   </ng-template>
 </app-expansion-panel>
+
+@if(exportProgress > 0) {
+  <div>Export progress: {{ exportProgress }}%</div>
+}
+
+@if(exportMessage) {
+  <div>{{ exportMessage }}</div>
+}
