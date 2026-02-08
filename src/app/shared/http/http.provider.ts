@@ -8,6 +8,7 @@ import { unauthorizedErrorInterceptor } from "./unauthorized-error-interceptor/u
 import { authHeaderInterceptor } from "./auth-header-interceptor/auth-header.interceptor";
 import { HttpService } from "./http-service/http.service.abstract";
 import { DefaultHttpService } from "./http-service/default-http.service";
+import { forbiddenErrorInterceptor } from "./forbidden-error-interceptor/forbidden-error.interceptor";
 
 export function provideMyAuthHttpClient(): EnvironmentProviders {
    return makeEnvironmentProviders([
@@ -16,6 +17,7 @@ export function provideMyAuthHttpClient(): EnvironmentProviders {
                 loadingInterceptor,
                 authHeaderInterceptor,
                 unknownErrorInterceptor,
+                forbiddenErrorInterceptor,
                 unauthorizedErrorInterceptor,
                 internalServerErrorInterceptor,
                 networkErrorInterceptor

@@ -5,6 +5,7 @@ import { AuthService } from "../../auth/auth-service/auth.service.abstract";
 import { HttpService } from "./http.service.abstract";
 import { HAS_AUTH_HEADER } from "../auth-header-interceptor/auth-header.interceptor";
 import { HAS_UNAUTHORIZED_ERROR_HANDLER } from "../unauthorized-error-interceptor/unauthorized-error.interceptor";
+import { HAS_FORBIDDEN_ERROR_HANDLER } from "../forbidden-error-interceptor/forbidden-error.interceptor";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class DefaultHttpService implements HttpService {
                 context: new HttpContext()
                     .set(HAS_AUTH_HEADER, true)
                     .set(HAS_UNAUTHORIZED_ERROR_HANDLER, true)
+                    .set(HAS_FORBIDDEN_ERROR_HANDLER, true)
             }
         ) 
     }
